@@ -1,0 +1,14 @@
+CREATE TABLE "Todos" (
+    id SERIAL PRIMARY KEY,
+    title text NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+CREATE TABLE "Todos_users" (
+   id      SERIAL PRIMARY KEY,
+   todo_id INTEGER,
+   user_id INTEGER,
+   FOREIGN KEY (todo_id) REFERENCES "Todos"(id) ON DELETE CASCADE,
+   FOREIGN KEY (user_id) REFERENCES "Users"(id) ON DELETE CASCADE
+);
