@@ -1,6 +1,6 @@
 package com.build.twitter_backend.services;
 
-import com.build.twitter_backend.models.UserModel;
+import com.build.twitter_backend.models.User;
 import com.build.twitter_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +23,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    public UserDetails create(UserModel userModel) {
+    public UserDetails create(User userModel) {
         return userRepository.save(userModel);
     }
 }

@@ -3,7 +3,7 @@ package com.build.twitter_backend.controllers;
 import com.build.twitter_backend.dtos.SigninDto;
 import com.build.twitter_backend.dtos.SignupDto;
 import com.build.twitter_backend.dtos.TokenDto;
-import com.build.twitter_backend.models.UserModel;
+import com.build.twitter_backend.models.User;
 import com.build.twitter_backend.services.TokenService;
 import com.build.twitter_backend.services.UserService;
 import jakarta.validation.Valid;
@@ -41,7 +41,7 @@ public class SignController {
     public ResponseEntity<TokenDto> signin(@RequestBody @Valid SigninDto signinDto) throws ResponseStatusException {
         var authToken = new UsernamePasswordAuthenticationToken(signinDto.username(), signinDto.password());
         var authentication = authenticationManager.authenticate(authToken);
-        var token = tokenService.generateToken((UserModel) authentication.getPrincipal());
+        var token = tokenService.generateToken((User) authentication.getPrincipal());
 
         return ResponseEntity.status(HttpStatus.OK).body(new TokenDto(token));
     }
@@ -54,7 +54,7 @@ public class SignController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "User alredy exists!");
         }
 
-        var newUser = userService.create(new UserModel(
+        var newUser = userService.create(new User(
             signupDto.username(),
             passwordEncoder.encode(signupDto.password())
         ));
