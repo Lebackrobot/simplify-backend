@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/noauth/**").permitAll()
                         .requestMatchers("/auth/**").authenticated()
+                        .requestMatchers("/auth/tasks/**").authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
